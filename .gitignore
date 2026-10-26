@@ -1,0 +1,33 @@
+# --- Python ---
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- JavaScript (frontend, later) ---
+node_modules/
+.next/
+
+# --- Secrets: never commit these ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# --- Personal / AI assistant notes (kept local, not public) ---
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+docs/PLAN.md
+docs/LEARNING_LOG.md
+
+# --- OS / editor ---
+.DS_Store
+.vscode/
+.idea/
