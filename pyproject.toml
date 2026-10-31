@@ -17,6 +17,7 @@ dev = [
 [tool.pytest.ini_options]
 testpaths = ["backend/tests"]
 pythonpath = ["backend"]  # lets tests write `from app.main import app`
+addopts = ["--import-mode=importlib"]  # recommended for new projects; no __init__.py needed in tests
 
 [tool.ruff]
 line-length = 100
