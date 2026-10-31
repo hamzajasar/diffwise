@@ -2,7 +2,9 @@
 name = "diffwise"
 version = "0.1.0"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "fastapi[standard]>=0.162.0",
+]
 
 [dependency-groups]
 dev = [
@@ -11,9 +13,14 @@ dev = [
     "ruff>=0.17.2",
 ]
 
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+pythonpath = ["backend"]  # lets tests write `from app.main import app`
+
 [tool.ruff]
 line-length = 100
 target-version = "py313"
+src = ["backend"]  # so Ruff knows `app` is our own code (sorted after third-party imports)
 
 [tool.ruff.lint]
 select = [
