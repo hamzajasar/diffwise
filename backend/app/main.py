@@ -3,7 +3,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from app.github import webhooks
+
 app = FastAPI(title="diffwise")
+app.include_router(webhooks.router)
 
 
 class HealthResponse(BaseModel):
