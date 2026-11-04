@@ -1,0 +1,4 @@
+diff --git a/rename_only_old.py b/rename_only_new.py
+similarity index 100%
+rename from rename_only_old.py
+rename to rename_only_new.py

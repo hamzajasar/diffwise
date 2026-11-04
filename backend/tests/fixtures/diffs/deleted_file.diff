@@ -1,0 +1,8 @@
+diff --git a/doomed.py b/doomed.py
+deleted file mode 100644
+index ca896f6..0000000
+--- a/doomed.py
++++ /dev/null
+@@ -1,2 +0,0 @@
+-def old():
+-    return 1

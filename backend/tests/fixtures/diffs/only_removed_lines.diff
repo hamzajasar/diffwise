@@ -1,0 +1,8 @@
+diff --git a/shrink.py b/shrink.py
+index a9aeef0..ff785fc 100644
+--- a/shrink.py
++++ b/shrink.py
+@@ -1,3 +1,2 @@
+ a = 1
+-b = 2
+ c = 3
