@@ -8,8 +8,11 @@ repos:
       - id: check-added-large-files  # block accidentally committing huge files
       - id: check-toml
       - id: check-yaml
+      # Fixtures are exact copies of real data (diffs, payloads): never rewrite them.
       - id: end-of-file-fixer
+        exclude: ^backend/tests/fixtures/
       - id: trailing-whitespace
+        exclude: ^backend/tests/fixtures/
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.17.2

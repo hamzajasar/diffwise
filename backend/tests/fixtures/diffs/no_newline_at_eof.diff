@@ -1,0 +1,9 @@
+diff --git a/no_eol.py b/no_eol.py
+index 3d2b4b1..1ddfb7d 100644
+--- a/no_eol.py
++++ b/no_eol.py
+@@ -1 +1 @@
+-x = 1
+\ No newline at end of file
++x = 2
+\ No newline at end of file

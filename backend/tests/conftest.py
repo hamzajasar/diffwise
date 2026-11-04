@@ -8,6 +8,12 @@ from app.main import app
 from tests.constants import TEST_APP_ID, TEST_WEBHOOK_SECRET
 
 
+@pytest.fixture
+def anyio_backend():
+    """Run `@pytest.mark.anyio` tests on asyncio, the event loop FastAPI uses."""
+    return "asyncio"
+
+
 @pytest.fixture(scope="session")
 def private_key_pem() -> str:
     """A throwaway RSA key in the same format GitHub issues. Never the real app key."""

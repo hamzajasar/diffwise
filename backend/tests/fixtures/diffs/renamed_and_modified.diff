@@ -1,0 +1,15 @@
+diff --git a/before_name.py b/after_name.py
+similarity index 62%
+rename from before_name.py
+rename to after_name.py
+index 0f2bf2a..153f11d 100644
+--- a/before_name.py
++++ b/after_name.py
+@@ -3,3 +3,7 @@ import os
+ 
+ def helper():
+     return os.getcwd()
++
++
++def extra():
++    return 42

@@ -20,11 +20,6 @@ TOKEN_URL = f"{GITHUB_API}/app/installations/{INSTALLATION_ID}/access_tokens"
 
 
 @pytest.fixture
-def anyio_backend():
-    return "asyncio"
-
-
-@pytest.fixture
 def public_key(private_key_pem):
     return serialization.load_pem_private_key(private_key_pem.encode(), password=None).public_key()
 

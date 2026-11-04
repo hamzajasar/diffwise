@@ -1,0 +1,8 @@
+diff --git a/greet.py b/greet.py
+new file mode 100644
+index 0000000..1e21eeb
+--- /dev/null
++++ b/greet.py
+@@ -0,0 +1,2 @@
++def greet(name: str) -> str:
++    return f"Hello, {name}!"

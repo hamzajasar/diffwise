@@ -1,0 +1,22 @@
+diff --git a/multi.py b/multi.py
+index ac9837c..6d2f926 100644
+--- a/multi.py
++++ b/multi.py
+@@ -1,6 +1,6 @@
+ line 1
+ line 2
+-line 3
++line 3 changed
+ line 4
+ line 5
+ line 6
+@@ -22,7 +22,8 @@ line 21
+ line 22
+ line 23
+ line 24
+-line 25
++line 25 changed
++line 25b added
+ line 26
+ line 27
+ line 28
