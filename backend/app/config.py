@@ -7,7 +7,7 @@ missing value fails loudly when settings are loaded instead of deep inside a rev
 from functools import lru_cache
 from typing import Literal
 
-from pydantic import Field, SecretStr
+from pydantic import Field, FilePath, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -21,6 +21,12 @@ class Settings(BaseSettings):
     # that it can't be guessed. Generate one with:
     #   python -c "import secrets; print(secrets.token_hex(32))"
     github_webhook_secret: SecretStr = Field(min_length=32)
+
+    # GitHub App identity. The ID is public; the private key file stays outside the repo
+    # (e.g. ~/.config/diffwise/) and only its path lives in settings. `FilePath` makes a
+    # wrong path fail at startup instead of at the first API call.
+    github_app_id: int = Field(gt=0)
+    github_private_key_path: FilePath
 
 
 @lru_cache
