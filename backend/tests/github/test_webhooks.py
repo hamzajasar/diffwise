@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 
 from app.github import webhooks
@@ -6,6 +8,8 @@ from tests.constants import TEST_WEBHOOK_SECRET
 
 URL = "/webhooks/github"
 BODY = b'{"action":"opened","number":1}'
+# Real payloads captured from GitHub (via smee), so tests match what GitHub actually sends.
+FIXTURES = Path(__file__).parent.parent / "fixtures" / "github"
 
 
 def signed_headers(body: bytes, secret: str = TEST_WEBHOOK_SECRET) -> dict[str, str]:
@@ -39,6 +43,25 @@ def test_tampered_body_is_rejected(client):
     headers = signed_headers(BODY)
 
     response = client.post(URL, content=b'{"action":"closed","number":1}', headers=headers)
+
+    assert response.status_code == 401
+
+
+def test_real_pull_request_payload_is_accepted(client):
+    body = (FIXTURES / "pull_request_opened.json").read_bytes()
+
+    response = client.post(URL, content=body, headers=signed_headers(body))
+
+    assert response.status_code == 202
+
+
+def test_tampered_real_payload_is_rejected(client):
+    body = (FIXTURES / "pull_request_opened.json").read_bytes()
+    headers = signed_headers(body)
+    tampered = body.replace(b'"action": "opened"', b'"action": "closed"', 1)
+    assert tampered != body  # guard: the replacement must actually change the payload
+
+    response = client.post(URL, content=tampered, headers=headers)
 
     assert response.status_code == 401
 
