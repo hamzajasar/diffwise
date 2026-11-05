@@ -3,9 +3,11 @@ name = "diffwise"
 version = "0.1.0"
 requires-python = ">=3.13"
 dependencies = [
+    "bandit>=1.9.4",
     "fastapi[standard]>=0.162.0",
     "pydantic-settings>=2.16.1",
     "pyjwt[crypto]>=2.15.1",
+    "ruff>=0.17.2",
     "unidiff>=1.0.1",
 ]
 
@@ -14,7 +16,6 @@ dev = [
     "pre-commit>=4.7.0",
     "pytest>=9.1.1",
     "respx>=0.23.1",
-    "ruff>=0.17.2",
 ]
 
 [tool.pytest.ini_options]
