@@ -21,7 +21,7 @@ class GitHubAPIError(Exception):
     """A GitHub API call failed."""
 
 
-def _auth_headers(token: SecretStr, accept: str) -> dict[str, str]:
+def auth_headers(token: SecretStr, accept: str) -> dict[str, str]:
     return {
         **GITHUB_HEADERS,
         "Accept": accept,
@@ -29,7 +29,7 @@ def _auth_headers(token: SecretStr, accept: str) -> dict[str, str]:
     }
 
 
-def _check_repo(repo: str) -> None:
+def check_repo(repo: str) -> None:
     if not REPO_NAME.fullmatch(repo) or ".." in repo:
         raise ValueError(f"Invalid repository name: {repo!r}")
 
@@ -38,13 +38,13 @@ async def fetch_pr_diff(
     client: httpx.AsyncClient, token: SecretStr, repo: str, pr_number: int
 ) -> str:
     """Return the pull request's changes as a unified diff."""
-    _check_repo(repo)
+    check_repo(repo)
     if pr_number < 1:
         raise ValueError(f"Invalid pull request number: {pr_number}")
 
     response = await client.get(
         f"{GITHUB_API}/repos/{repo}/pulls/{pr_number}",
-        headers=_auth_headers(token, "application/vnd.github.diff"),  # the diff, not JSON
+        headers=auth_headers(token, "application/vnd.github.diff"),  # the diff, not JSON
     )
     if response.status_code != httpx.codes.OK:
         # Status code only: never echo the token or response body into errors/logs.
@@ -56,7 +56,7 @@ async def fetch_file(
     client: httpx.AsyncClient, token: SecretStr, repo: str, path: str, ref: str
 ) -> str | None:
     """Return a file's text at commit `ref`, or None if it's too large or not UTF-8 text."""
-    _check_repo(repo)
+    check_repo(repo)
     parts = path.split("/")
     if not path or path.startswith("/") or ".." in parts or "" in parts:
         raise ValueError(f"Invalid file path: {path!r}")
@@ -66,7 +66,7 @@ async def fetch_file(
     response = await client.get(
         f"{GITHUB_API}/repos/{repo}/contents/{quote(path)}",  # e.g. "my file.py" -> "my%20file.py"
         params={"ref": ref},
-        headers=_auth_headers(token, "application/vnd.github.raw"),  # the file itself, not JSON
+        headers=auth_headers(token, "application/vnd.github.raw"),  # the file itself, not JSON
     )
     if response.status_code != httpx.codes.OK:
         raise GitHubAPIError(f"Could not fetch {path} (HTTP {response.status_code})")
